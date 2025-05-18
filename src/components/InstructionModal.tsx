@@ -1,6 +1,18 @@
-const InstructionModal = () => {
+import type { InstructionSet } from "../types";
+
+interface InstructionModalProps {
+  initialData: InstructionSet | null;
+  onSave: (instructionSet: InstructionSet) => void;
+  onClose: () => void;
+}
+
+const InstructionModal = ({
+  initialData,
+  onSave,
+  onClose
+}: InstructionModalProps) => {
   return (
-    <div></div>
+    <div>Hello</div>
   );
 };
 
