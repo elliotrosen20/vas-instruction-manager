@@ -42,6 +42,10 @@ const Dashboard = () => {
     setIsModalOpen(true);
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+  }
+
   return (
     <div>
       <div>
@@ -57,6 +61,14 @@ const Dashboard = () => {
         onEdit={openEditModal}
         onDelete={handleDeleteSet}
       />
+
+      {isModalOpen && (
+        <InstructionModal
+          initialData={editingSet}
+          onSave={editingSet ? handleEditSet : handleAddSet}
+          onClose={handleCloseModal}
+        />
+      )}
 
 
     </div>
