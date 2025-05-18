@@ -1,6 +1,16 @@
+import { useState } from "react";
+import type { InstructionSet } from "../types";
 import ActionMenu from "./ActionMenu";
 
-const InstructionTable = () => {
+interface InstructionTableProps {
+  instructionSets: InstructionSet[];
+  onEdit: (set: InstructionSet) => void;
+  onDelete: (id: string) => void;
+}
+
+const InstructionTable = ({
+  instructionSets, onEdit, onDelete
+}: InstructionTableProps) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredSets = instructionSets.filter(set => 
@@ -27,8 +37,25 @@ const InstructionTable = () => {
           </tr>
         </thead>
         <tbody>
-          {instructionSets.map(set => (
+          {filteredSets.map(set => (
             <tr key={set.id}>
+              <td>{set.title}</td>
+              <td>{set.retailer}</td>
+              <td>
+                {set.instructions.length} {set.instructions.length === 1 ? 'Instruction' : 'Instructions'}
+              </td>
+              <td>
+                {set.skuPrefixes.slice(0, 2).map((prefix: string, index: number) => (
+                  <span key={index} className="mr-2">
+                    {prefix}/Apparel Merchant
+                  </span>
+                ))}
+                {set.skuPrefixes.length > 2 && (
+                  <span>
+                    {set.skuPrefixes.length - 2} more
+                  </span>
+                )}
+              </td>
               <td>
                 <ActionMenu
                   instructionSet={set}
