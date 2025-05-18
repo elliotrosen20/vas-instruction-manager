@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { InstructionSet } from "../types";
 import InstructionModal from "./InstructionModal";
+import InstructionTable from "./InstructionTable";
 
 const Dashboard = () => {
   const [instructionSets, setInstructionSets] = useState<InstructionSet[]>(() => {
@@ -28,7 +29,7 @@ const Dashboard = () => {
   };
 
   const handleDeleteSet = (id: string) => {
-    setInstructionSets(prev => prev.filter(set => set.id !=== id));
+    setInstructionSets(prev => prev.filter(set => set.id !== id));
   };
 
   const openCreateModal = () => {
@@ -51,11 +52,13 @@ const Dashboard = () => {
           Add Instructions
         </button>
       </div>
-      <InstructionModal
+      <InstructionTable
         instructionSets={instructionSets}
         onEdit={openEditModal}
         onDelete={handleDeleteSet}
       />
+
+
     </div>
   )
 };
