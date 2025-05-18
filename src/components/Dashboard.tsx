@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import type { InstructionSet } from "../types";
+import InstructionModal from "./InstructionModal";
 
 const Dashboard = () => {
   const [instructionSets, setInstructionSets] = useState<InstructionSet[]>(() => {
@@ -44,11 +46,16 @@ const Dashboard = () => {
       <div>
         <h1>Manage VAS Instruction Sets</h1>
         <button
-          onClick={() => handleOpenModal()}
+          onClick={openCreateModal}
         >
           Add Instructions
         </button>
       </div>
+      <InstructionModal
+        instructionSets={instructionSets}
+        onEdit={openEditModal}
+        onDelete={handleDeleteSet}
+      />
     </div>
   )
 };
