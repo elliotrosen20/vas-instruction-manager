@@ -127,6 +127,12 @@ const InstructionModal = ({
     });
   };
 
+  const filteredSkus = selectedBrand
+    ? skusByBrand[selectedBrand].filter(sku =>
+        sku.toLowerCase().includes(searchSku.toLowerCase())
+      )
+    : [];
+
   const handleSubmit = () => {}
 
   return (
