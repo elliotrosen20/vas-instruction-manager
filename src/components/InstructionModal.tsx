@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Instruction, InstructionSet } from "../types";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -133,18 +133,52 @@ const InstructionModal = ({
       )
     : [];
 
-  const handleSubmit = () => {}
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSave(formData);
+  }
+  
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.sku-drop-down-container') && showSkuDropdown) {
+        setShowSkuDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [showSkuDropdown])
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div>
-        <form onSubmit={handleSubmit}>
+        <div>
           <div>
             <h2>
               {initialData ? 'Edit': 'Create'} VAS Instruction Set
             </h2>
+            <button
+              type="button"
+              onClick={onClose}
+            >
+              ✕
+            </button>
           </div>
-        </form>
+
+          <form onSubmit={handleSubmit}>
+            <div>
+              <div
+                onClick={() => toggleSection('generalInfo')}
+              >
+                <h3>General Info</h3>
+                <span>{sectionsOpen.generalInfo ? '▲' : '▼'}</span>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
