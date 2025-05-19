@@ -92,6 +92,19 @@ const InstructionModal = ({
     }));
   };
 
+  const removeInstruction = (index: number) => {
+    if (formData.instructions.length > 1) {
+      setFormData(prev => {
+        const newInstructions = [...prev.instructions];
+        newInstructions.splice(index, 1);
+        return {
+          ...prev,
+          instruction: newInstructions
+        };
+      });
+    }
+  };
+
   const handleSubmit = () => {}
 
   return (
