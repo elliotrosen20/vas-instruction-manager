@@ -40,6 +40,15 @@ const InstructionModal = ({
 
   const brands = ['Apparel Merchant'];
 
+  const retailers = [
+    'Macy\'s Store',
+    'Target',
+    'ULTA',
+    'Nordstrom',
+    'Dillard\'s',
+    'FBA'
+  ];
+
   const skusByBrand: Record<string, string[]> = {
     'Apparel Merchant': [
       '123fgd', '1912404', '1916416', 'controller', 
@@ -175,6 +184,111 @@ const InstructionModal = ({
               >
                 <h3>General Info</h3>
                 <span>{sectionsOpen.generalInfo ? '▲' : '▼'}</span>
+              </div>
+
+              {sectionsOpen.generalInfo && (
+                <div>
+                  <div>
+                    <label>Title</label>
+                    <input
+                      type="text"
+                      name="title"
+                      value={formData.title}
+                      onChange={handleGeneralInfoChange}
+                      placeholder="Tshirt Hang Tag"
+                    />
+                  </div>
+                  <div>
+                    <label>Retailer</label>
+                    <select 
+                      name="retailer"
+                      value={formData.retailer}
+                      onChange={handleGeneralInfoChange}
+                    >
+                      <option value="">Select retailer</option>
+                      {retailers.map(retailer => (
+                        <option key={retailer} value={retailer}>{retailer}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <div
+                onClick={() => toggleSection('instructions')}
+              >
+                <h3>Instructions</h3>
+                <span>{sectionsOpen.instructions ? '▲' : '▼'}</span>
+              </div>
+
+              {sectionsOpen.instructions && (
+                <div>
+                  <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+
+                  {formData.instructions.map((instructions, index) => (
+                    <div key={instructions.id}>
+                      <div>
+                        <input
+                          type="text"
+                          value={instructions.english}
+                          onChange={(e) => handleInstructionChange(index, 'english', e.target.value)}
+                          placeholder="Apply hang tag on the left corner of shirt"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <input
+                          type="text"
+                          value={instructions.spanish}
+                          onChange={(e) => handleInstructionChange(index, 'spanish', e.target.value)}
+                          placeholder="Aplica la etiqueta colgante en la esquina izquierda de la camisa"
+                        />
+                      </div>
+                      <div>
+                        <div>
+                          {index === 0 ? (
+                            <div>
+                              <img
+                                src="/t-shirt-icon.png"
+                                alt="T-shirt"
+                              />
+                              <button
+                                type="button"
+                              >
+                                ✕
+                              </button>
+                            </div>
+                          ) : (
+                            <span>Drag and drop image, or click to select</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  <div>
+                    <button
+                      type="button"
+                      onClick={addInstruction}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <div
+                onClick={() => toggleSection('skus')}
+              >
+
               </div>
             </div>
           </form>
