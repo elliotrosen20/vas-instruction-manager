@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { InstructionSet } from "../types";
+import type { Instruction, InstructionSet } from "../types";
 import { v4 as uuidv4 } from 'uuid';
 
 interface InstructionModalProps {
@@ -65,8 +65,32 @@ const InstructionModal = ({
   const handleInstructionChange = (index: number, field: 'english' | 'spanish', value: string) => {
     setFormData(prev => {
       const newInstructions = [...prev.instructions];
+      newInstructions[index] = {
+        ...newInstructions[index],
+        [field]: value
+      };
+      return {
+        ...prev,
+        instructions: newInstructions
+      }
     })
   }
+
+  const addInstruction = () => {
+    const newInstruction: Instruction = {
+      id: uuidv4(),
+      english: '',
+      spanish: ''
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      instructions: [
+        ...prev.instructions,
+        newInstruction
+      ]
+    }));
+  };
 
   const handleSubmit = () => {}
 
