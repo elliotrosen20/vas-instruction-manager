@@ -12,7 +12,14 @@ const InstructionModal = ({
   onClose
 }: InstructionModalProps) => {
   return (
-    <div>Hello</div>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div>
+        Hi there
+        {/* <form action="">
+
+        </form> */}
+      </div>
+    </div>
   );
 };
 
