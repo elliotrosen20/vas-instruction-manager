@@ -105,6 +105,28 @@ const InstructionModal = ({
     }
   };
 
+  const handleBrandChange = (brand: string) => {
+    setSelectedBrand(brand);
+  }
+
+  const handleSkuToggle = (sku: string) => {
+    setFormData(prev => {
+      const skuExists = prev.skuPrefixes.includes(sku);
+
+      if (skuExists) {
+        return {
+          ...prev,
+          skuPrefixes: prev.skuPrefixes.filter(s => s !== sku)
+        };
+      } else {
+        return {
+          ...prev,
+          skuPrefixes: [...prev.skuPrefixes, sku]
+        };
+      }
+    });
+  };
+
   const handleSubmit = () => {}
 
   return (
